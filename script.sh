@@ -1,6 +1,3 @@
-write a script.sh
-#!/bin/bash
-
 # Create a Heroku account and install the Heroku CLI
 heroku login
 
@@ -21,7 +18,9 @@ echo "web: streamlit run your_app.py" > Procfile
 # Commit your changes to the Git repository and push to Heroku using the Heroku CLI
 git add .
 git commit -m "Initial commit"
-heroku create
+if ! heroku apps:info -a my_streamlit_app &> /dev/null; then
+    heroku create my_streamlit_app
+fi
 git push heroku master
 
 # Use the Heroku dashboard to add a database, set up environment variables, and scale the application
